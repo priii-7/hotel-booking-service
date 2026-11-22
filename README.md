@@ -48,5 +48,8 @@ client -> RateLimitFilter -> Controllers
 - Search is one SQL query -> at scale use read replicas / Elasticsearch, partition inventory by date.
 
 ## Results
-Fill in after running: `k6 run loadtest/search.js` -> __ req/s, p95 __ ms (cache hit rate __%).
-Concurrency test: 40 threads, 5 rooms -> exactly 5 bookings, 35 rejected.
+Search endpoint load test (k6, 200 concurrent users, 45s ramp+hold).
+Everything ran on one laptop in Docker, including k6 itself:
+~1,550 req/s, median 48 ms, p95 104 ms, 99.96% success (43 failed of 116,483)
+Concurrency test: 40 threads competing for 5 rooms -> exactly 5 bookings, 35 rejected.
+
